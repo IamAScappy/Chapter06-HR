@@ -39,7 +39,6 @@ class EmployeeDAO {
     // 2. 샌드박스 내 문서 디렉터리 경로에서 데이터베이스 파일을 읽어온다.
     let docPath = fileMgr.urls(for: .documentDirectory, in: .userDomainMask).first
     let dbPath = docPath!.appendingPathComponent("hr.sqlite").path
-    
     // 3. 샌드박스 경로에 hr.sqlite 파일이 없다면 메인 번들에 만들어 둔 파일을 가져와 복사한다.
     if fileMgr.fileExists(atPath: dbPath) == false {
       let dbSource = Bundle.main.path(forResource: "hr", ofType: "sqlite")
@@ -146,6 +145,7 @@ class EmployeeDAO {
   }
   
   func remove(empCd: Int) -> Bool {
+    print(empCd)
     do {
       let sql = "DELETE FROM employee WHERE emp_cd = ? "
       try self.fmdb.executeUpdate(sql, values: [empCd])
